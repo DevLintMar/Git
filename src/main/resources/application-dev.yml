@@ -1,0 +1,27 @@
+server:
+  port: 80
+
+student:
+  id: 1
+
+spring:
+  # security:
+  #   user:
+  #     name: root # 用户名
+  #     password: 123 # 密码
+  #     roles: #　角色
+  #       - admin
+  #       - user
+  datasource:
+    url: jdbc:mysql://localhost:3306/bjpowernode?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    cache: false
+
+mybatis:
+  type-aliases-package: com.lintmar.springboot.bean
+  mapper-locations: classpath:com.lintmar.springboot.mapper/*.xml
