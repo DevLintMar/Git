@@ -1,5 +1,5 @@
-# SpringBoot Project Jedis
+# SpringBoot Project RedisTemplate
 - Author
   * Owner DevLintMar
 - Test
-  * Jedis
+  * RedisTemplate
