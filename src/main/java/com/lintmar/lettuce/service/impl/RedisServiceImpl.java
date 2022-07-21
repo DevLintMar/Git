@@ -1,6 +1,6 @@
-package com.lintmar.redistemplate.service.impl;
+package com.lintmar.lettuce.service.impl;
 
-import com.lintmar.redistemplate.service.RedisService;
+import com.lintmar.lettuce.service.RedisService;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

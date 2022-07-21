@@ -1,7 +1,7 @@
-package com.lintmar.redistemplate.service.impl;
+package com.lintmar.lettuce.service.impl;
 
-import com.lintmar.redistemplate.bean.Student;
-import com.lintmar.redistemplate.service.ObjectRedisService;
+import com.lintmar.lettuce.bean.Student;
+import com.lintmar.lettuce.service.ObjectRedisService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Service;

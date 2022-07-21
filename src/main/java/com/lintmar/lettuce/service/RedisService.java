@@ -1,4 +1,4 @@
-package com.lintmar.redistemplate.service;
+package com.lintmar.lettuce.service;
 
 import java.util.List;
 import java.util.Set;

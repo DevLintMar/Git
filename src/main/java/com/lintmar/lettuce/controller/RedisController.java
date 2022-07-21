@@ -1,7 +1,7 @@
-package com.lintmar.redistemplate.controller;
+package com.lintmar.lettuce.controller;
 
-import com.lintmar.redistemplate.service.ObjectRedisService;
-import com.lintmar.redistemplate.service.RedisService;
+import com.lintmar.lettuce.service.ObjectRedisService;
+import com.lintmar.lettuce.service.RedisService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

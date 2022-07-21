@@ -1,4 +1,4 @@
-package com.lintmar.redistemplate.bean;
+package com.lintmar.lettuce.bean;
 
 import lombok.Data;
 
