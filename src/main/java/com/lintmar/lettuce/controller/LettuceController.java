@@ -2,11 +2,10 @@ package com.lintmar.lettuce.controller;
 
 import com.lintmar.lettuce.service.ObjectRedisService;
 import com.lintmar.lettuce.service.RedisService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
 
 /**
  * @author LintMar
@@ -15,10 +14,10 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("/lettuce")
 public class LettuceController {
-    @Resource
+    @Autowired
     RedisService service;
 
-    @Resource
+    @Autowired
     ObjectRedisService objectService;
 
     @RequestMapping("/show")
