@@ -1,4 +1,4 @@
-package com.lintmar.springboot;
+package com.lintmar.jedis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

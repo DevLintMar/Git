@@ -1,4 +1,4 @@
-package com.lintmar.springboot.controller;
+package com.lintmar.jedis.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

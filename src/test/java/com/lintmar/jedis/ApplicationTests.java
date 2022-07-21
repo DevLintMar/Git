@@ -1,4 +1,4 @@
-package com.lintmar.springboot;
+package com.lintmar.jedis;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
