@@ -2,4 +2,4 @@
 - Author
   * Owner DevLintMar
 - Test
-  * RedisTemplate
+  * Lettuce
