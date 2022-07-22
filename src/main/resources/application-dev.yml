@@ -21,6 +21,14 @@ spring:
     static-path-pattern: /static/**
   thymeleaf:
     cache: false
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+  mail:
+    host: smtp.163.com
+    username: LintMar@163.com
+    password: PSNUUUCTIAKHUWMP
 
 mybatis:
   type-aliases-package: com.lintmar.springboot.bean

@@ -11,7 +11,15 @@ import java.util.List;
 public interface UserService {
     List<AuthUser> getAll();
 
-    AuthUser addUser(String username, String password, String[] roles);
+    AuthUser addUser(String username, String password);
+
+    AuthUser addUser(String username, String password, String... roles);
 
     int deleteUser(String username);
+
+    boolean checkUsername(String username);
+
+    boolean sendCode(String email);
+
+    boolean checkCode(String email, String code);
 }

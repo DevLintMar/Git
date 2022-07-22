@@ -13,6 +13,7 @@
             $(function () {
                 var $username = $("#username");
                 var $password = $("#password");
+                var $rememberMe = $("#rememberMe");
                 $username[0].focus();
                 $username.keydown(function (event) {
                     if (event.keyCode === 13) {
@@ -23,6 +24,12 @@
                 $password.keydown(function (event) {
                     if (event.keyCode === 13) {
                         $password[0].blur();
+                        $("#login").submit();
+                    }
+                });
+                $rememberMe.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $rememberMe[0].blur();
                         $("#login").submit();
                     }
                 });
@@ -37,6 +44,7 @@
             自动登录：<input type="checkbox" id="rememberMe" name="rememberMe"><br>
             <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input type="button" id="loginBtn" value="登录">
+            <br>没有账号?<a href="/register">去注册</a>
         </form>
     </body>
 </html>

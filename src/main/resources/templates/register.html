@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="icon" href="/static/icons/favicon.ico">
+        <link rel="shortcut icon" href="/static/icons/favicon.ico">
+        <link rel="bookmark" href="/static/icons/favicon.ico">
+        <script type="text/javascript" src="/static/js/jquery-3.6.0.js"></script>
+        <script>
+            var csrfParameterName = "[[${_csrf.parameterName}]]";
+            var csrfToken = "[[${_csrf.token}]]";
+            var emailRegExp = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+            var usernameRegExp = /^[a-zA-Z]\w{2,11}$/
+            var passwordRegExp = /^\w{1,18}$/
+
+            var $username;
+            var $password;
+            var $confirm;
+            var $email;
+            var $code;
+
+            function checkNotNull(username, password) {
+                if (username === "" || password === "") {
+                    alert("用户名或密码不能为空")
+                    return false;
+                }
+                return true;
+            }
+
+            function checkUsernameRegExp(username) {
+                if (usernameRegExp.test(username)) {
+                    return true;
+                }
+                alert("用户名必须以字母开头，只能包含字母、数字和下划线，长度在3到12之间");
+                return false;
+            }
+
+            function checkUsername(username) {
+                var flag = false;
+                $.ajax({
+                    type: "post",
+                    url: "/checkUsername",
+                    async: false,
+                    data: "username=" + username + "&" + csrfParameterName + "=" + csrfToken,
+                    success: function () {
+                        flag = true;
+                    },
+                    error: function () {
+                        alert("用户名已存在");
+                    }
+                });
+                return flag;
+            }
+
+            function checkPassword(password) {
+                if (passwordRegExp.test(password)) {
+                    return true;
+                }
+                alert("密码只能包含字母、数字和下划线，长度在1到18之间");
+                return false;
+            }
+
+            function checkConfirm(password, confirm) {
+                if (password === confirm) {
+                    return true;
+                }
+                alert("两次输入的密码不一致");
+                return false;
+            }
+
+            function checkEmail(email) {
+                if (emailRegExp.test(email)) {
+                    return true;
+                }
+                alert("邮箱格式不正确");
+                return false;
+            }
+
+            function sendCode() {
+                if (checkEmail($email.val())) {
+                    $.ajax({
+                        type: "post",
+                        url: "/sendCode",
+                        data: "email=" + $email.val() + "&" + csrfParameterName + "=" + csrfToken,
+                        success: function () {
+                            alert("验证码已发送");
+                        },
+                        error: function () {
+                            alert("验证码发送间隔为3分钟，请稍后再试")
+                        }
+                    });
+                }
+            }
+
+            function checkCode(email, code) {
+                var flag = false;
+                $.ajax({
+                    type: "post",
+                    url: "/checkCode",
+                    async: false,
+                    data: "email=" + email + "&code=" + code + "&" + csrfParameterName + "=" + csrfToken,
+                    success: function () {
+                        flag = true;
+                    },
+                    error: function () {
+                        alert("邮箱验证码错误");
+                    }
+                });
+                return flag;
+            }
+
+            function doReg(username, password) {
+                $.ajax({
+                    type: "post",
+                    url: "/doReg",
+                    data: "username=" + username + "&password=" + password + "&" + csrfParameterName + "=" + csrfToken,
+                    success: function () {
+                        alert("注册成功!");
+                        window.location.href = "/login";
+                    },
+                    error: function () {
+                        alert("注册失败!请提交管理员说明异常");
+                    }
+                });
+            }
+
+            function register() {
+                var username = $username.val();
+                var password = $password.val();
+                var confirm = $confirm.val();
+                var email = $email.val();
+                var code = $code.val();
+                if (checkNotNull(username, password) && checkUsernameRegExp(username) && checkUsername(username) &&
+                    checkPassword(password) && checkConfirm(password, confirm) && checkEmail(email) &&
+                    checkCode(email, code)) {
+                    doReg(username, password);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            $(function () {
+                $username = $("#username");
+                $password = $("#password");
+                $confirm = $("#confirm");
+                $email = $("#email");
+                $code = $("#code");
+                $username[0].focus();
+                $username.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $username[0].blur();
+                        $password[0].focus();
+                    }
+                });
+                $password.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $password[0].blur();
+                        $confirm[0].focus();
+                    }
+                });
+                $confirm.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $confirm[0].blur();
+                        $email[0].focus();
+                    }
+                });
+                $email.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $email[0].blur();
+                        $code[0].focus();
+                    }
+                });
+                $code.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $code[0].blur();
+                        register();
+                    }
+                });
+            });
+        </script>
+        <form>
+            用户名：<input type="text" id="username" name="username"><br>
+            密码：<input type="password" id="password" name="password"><br>
+            重复密码：<input type="password" id="confirm"><br>
+            邮箱：<input type="text" id="email"><br>
+            验证码：<input type="text" id="code">
+            <input type="button" id="send" value="发送" onclick="sendCode()"><br>
+            <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="button" id="regBtn" value="注册" onclick="register()">
+            <br>已有账号?<a href="/login">去登录</a>
+        </form>
+    </body>
+</html>
