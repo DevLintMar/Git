@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/async")
 public class AsyncController {
     @Autowired
-    AsyncService asyncService;
+    private AsyncService asyncService;
 
     @RequestMapping("/async")
     public String async() throws InterruptedException {

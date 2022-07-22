@@ -25,7 +25,7 @@ public class MainController {
     @Value("${student.id}")
     private int id;
     @Autowired
-    CustomerService customerService;
+    private CustomerService customerService;
 
     @RequestMapping("/index")
     @ResponseBody

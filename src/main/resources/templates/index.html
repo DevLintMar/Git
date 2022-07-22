@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Index</title>
+        <link rel="icon" href="/static/icons/favicon.ico">
+        <link rel="shortcut icon" href="/static/icons/favicon.ico">
+        <link rel="bookmark" href="/static/icons/favicon.ico">
+    </head>
+    <body>
+        <h1>Index Page!!!</h1>
+        <form action="/logout" method="post">
+            <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="submit" value="登出">
+        </form>
+    </body>
+</html>

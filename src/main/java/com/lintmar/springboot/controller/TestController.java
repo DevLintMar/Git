@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/test")
 public class TestController {
     @Autowired
-    ApplicationContext ac;
+    private ApplicationContext ac;
 
     @RequestMapping("/show")
     public String test() {

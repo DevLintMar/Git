@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>User</title>
+        <link rel="icon" href="/static/icons/favicon.ico">
+        <link rel="shortcut icon" href="/static/icons/favicon.ico">
+        <link rel="bookmark" href="/static/icons/favicon.ico">
+        <script type="text/javascript" src="/static/js/jquery-3.6.0.js"></script>
+        <script>
+            var csrfParameterName = "[[${_csrf.parameterName}]]";
+            var csrfToken = "[[${_csrf.token}]]";
+            var $username;
+            var $password;
+            var $roles;
+            var $addUser;
+
+            function init() {
+                $.ajax({
+                    type: "post",
+                    url: "/user/getAll",
+                    dataType: "json",
+                    data: csrfParameterName + "=" + csrfToken,
+                    success: function (list) {
+                        var html = "";
+                        $.each(list, function (index, user) {
+                            html += "<tr>";
+                            html += "<td>";
+                            html += user.username;
+                            html += "</td>";
+                            html += "<td>";
+                            html += user.password;
+                            html += "</td>";
+                            html += "<td>";
+                            html += user.roles;
+                            html += "</td>";
+                            html += "<td>";
+                            var param = "\"" + user.username + "\"";
+                            html += "<a href='javascript:void(0)' onclick='del(" + param + ")'>删除</a>";
+                            html += "</td>";
+                            html += "</tr>"
+                        });
+                        $("#show").html(html);
+                    }
+                });
+            }
+
+            function del(username) {
+                if (window.confirm("确认删除用户: " + username)) {
+                    $.ajax({
+                        type: "post",
+                        url: "/user/delete",
+                        data: "username=" + username + "&" + csrfParameterName + "=" + csrfToken,
+                        success: function () {
+                            alert("成功删除用户: " + username);
+                            init();
+                        }
+                    })
+                }
+            }
+
+            function add(username, password, roles) {
+                if (window.confirm("确认添加用户: " + username)) {
+                    if (username !== "" && password !== "") {
+                        $.ajax({
+                            type: "post",
+                            url: "/user/add",
+                            dataType: "json",
+                            data: "username=" + username + "&password=" + password + "&roles=" + roles + "&" + csrfParameterName + "=" + csrfToken,
+                            success: function (authUser) {
+                                alert("成功添加用户: " + authUser.username);
+                                init();
+                                remove();
+                            },
+                            error: function () {
+                                alert("添加失败");
+                                remove();
+                            }
+                        });
+                    } else {
+                        alert("用户名或密码不能为空");
+                        remove();
+                    }
+                }
+            }
+
+            function remove() {
+                $username.val("");
+                $password.val("");
+                $roles.val("");
+                $username[0].focus();
+            }
+        </script>
+    </head>
+    <body>
+        <script>
+            $(function () {
+                $username = $("#username");
+                $password = $("#password");
+                $roles = $("#roles");
+                $addUser = $("#addUser");
+                init();
+                $username[0].focus();
+                $username.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $username[0].blur();
+                        $password[0].focus();
+                    }
+                });
+                $password.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $password[0].blur();
+                        $roles[0].focus();
+                    }
+                });
+                $roles.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $roles[0].blur();
+                        add($username.val(), $password.val(), $roles.val());
+                    }
+                });
+                $addUser.click(function () {
+                    add($username.val(), $password.val(), $roles.val());
+                });
+            });
+        </script>
+        <h1>用户管理</h1>
+        <h2>添加用户</h2>
+        <form action="/user/add" method="post">
+            用户名<input type="text" id="username" name="username"><br>
+            密码<input type="text" id="password" name="password"><br>
+            身份<input type="text" id="roles" name="roles"><br>
+            <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="button" id="addUser" value="添加">
+        </form>
+        <h2>用户列表</h2>
+        <table width="60%" border="1px">
+            <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>密码（已加密）</th>
+                    <th>身份</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="show"></tbody>
+        </table>
+    </body>
+</html>

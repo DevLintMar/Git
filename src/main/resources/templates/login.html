@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="icon" href="/static/icons/favicon.ico">
+        <link rel="shortcut icon" href="/static/icons/favicon.ico">
+        <link rel="bookmark" href="/static/icons/favicon.ico">
+        <script type="text/javascript" src="/static/js/jquery-3.6.0.js"></script>
+    </head>
+    <body>
+        <script>
+            $(function () {
+                var $username = $("#username");
+                var $password = $("#password");
+                $username[0].focus();
+                $username.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $username[0].blur();
+                        $password[0].focus();
+                    }
+                });
+                $password.keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $password[0].blur();
+                        $("#login").submit();
+                    }
+                });
+                $("#loginBtn").click(function () {
+                    $("#login").submit();
+                })
+            });
+        </script>
+        <form action="/doLogin" method="post" id="login">
+            用户名：<input type="text" id="username" name="username"><br>
+            密码：<input type="password" id="password" name="password"><br>
+            自动登录：<input type="checkbox" id="rememberMe" name="rememberMe"><br>
+            <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="button" id="loginBtn" value="登录">
+        </form>
+    </body>
+</html>
