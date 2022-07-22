@@ -12,7 +12,6 @@ import java.util.List;
  * @date 2022/7/16
  **/
 @Mapper
-@Repository
 public interface CustomerMapper {
     @Select("select id, name, age from customer")
     List<Customer> getAll();
