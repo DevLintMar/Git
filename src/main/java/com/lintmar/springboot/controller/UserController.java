@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/main")
+    @RequestMapping({"", "/", "/main"})
     public String main() {
         return "user";
     }
