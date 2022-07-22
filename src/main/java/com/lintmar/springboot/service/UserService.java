@@ -1,6 +1,6 @@
 package com.lintmar.springboot.service;
 
-import com.lintmar.springboot.bean.AuthUser;
+import com.lintmar.springboot.entity.AuthUser;
 
 import java.util.List;
 

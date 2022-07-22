@@ -1,4 +1,4 @@
-package com.lintmar.springboot.bean;
+package com.lintmar.springboot.entity;
 
 import lombok.Data;
 

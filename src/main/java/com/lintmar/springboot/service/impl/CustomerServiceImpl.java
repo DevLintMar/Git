@@ -1,6 +1,6 @@
 package com.lintmar.springboot.service.impl;
 
-import com.lintmar.springboot.bean.Customer;
+import com.lintmar.springboot.entity.Customer;
 import com.lintmar.springboot.mapper.CustomerMapper;
 import com.lintmar.springboot.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

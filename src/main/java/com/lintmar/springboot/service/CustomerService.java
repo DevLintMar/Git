@@ -1,6 +1,6 @@
 package com.lintmar.springboot.service;
 
-import com.lintmar.springboot.bean.Customer;
+import com.lintmar.springboot.entity.Customer;
 
 import java.util.List;
 

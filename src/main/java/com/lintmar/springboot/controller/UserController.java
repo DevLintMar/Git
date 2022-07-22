@@ -1,6 +1,6 @@
 package com.lintmar.springboot.controller;
 
-import com.lintmar.springboot.bean.AuthUser;
+import com.lintmar.springboot.entity.AuthUser;
 import com.lintmar.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

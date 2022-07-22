@@ -1,6 +1,6 @@
 package com.lintmar.springboot.controller;
 
-import com.lintmar.springboot.bean.Customer;
+import com.lintmar.springboot.entity.Customer;
 import com.lintmar.springboot.bean.Student;
 import com.lintmar.springboot.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;

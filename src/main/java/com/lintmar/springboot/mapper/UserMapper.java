@@ -1,6 +1,6 @@
 package com.lintmar.springboot.mapper;
 
-import com.lintmar.springboot.bean.AuthUser;
+import com.lintmar.springboot.entity.AuthUser;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

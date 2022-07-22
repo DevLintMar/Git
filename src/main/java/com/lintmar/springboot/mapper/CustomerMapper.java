@@ -1,9 +1,8 @@
 package com.lintmar.springboot.mapper;
 
-import com.lintmar.springboot.bean.Customer;
+import com.lintmar.springboot.entity.Customer;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

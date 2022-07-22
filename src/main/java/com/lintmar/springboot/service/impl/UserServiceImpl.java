@@ -1,6 +1,6 @@
 package com.lintmar.springboot.service.impl;
 
-import com.lintmar.springboot.bean.AuthUser;
+import com.lintmar.springboot.entity.AuthUser;
 import com.lintmar.springboot.mapper.UserMapper;
 import com.lintmar.springboot.service.UserService;
 import com.lintmar.springboot.utils.EncoderUtils;
