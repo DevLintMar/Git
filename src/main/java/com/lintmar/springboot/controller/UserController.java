@@ -37,7 +37,7 @@ public class UserController {
         return userService.addUser(username, password, roles);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    @RequestMapping(value = "//delete", method = RequestMethod.POST)
     @ResponseBody
     public String delete(String username) {
         if (userService.deleteUser(username) == 1) {

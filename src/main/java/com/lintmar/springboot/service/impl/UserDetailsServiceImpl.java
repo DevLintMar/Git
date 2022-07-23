@@ -21,9 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AuthUser authUser = userMapper.getUser(username);
+        if (authUser == null) {
+            throw new UsernameNotFoundException("用户名或密码错误");
+        }
         String password = authUser.getPassword();
         String[] roles = authUser.getRoles().split(",");
-        if (password == null) throw new UsernameNotFoundException("用户名或密码错误");
         return User.withUsername(username).password(password).roles(roles).build();
     }
 }

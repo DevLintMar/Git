@@ -1,10 +1,8 @@
 package com.lintmar.springboot.mapper;
 
 import com.lintmar.springboot.entity.AuthUser;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.lintmar.springboot.mapper.cache.RedisMyBatisCache;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -13,6 +11,7 @@ import java.util.List;
  * @date 2022/7/16
  **/
 @Mapper
+@CacheNamespace(implementation = RedisMyBatisCache.class)
 public interface UserMapper {
     @Select("select username, password, roles from auth_user")
     List<AuthUser> getAll();

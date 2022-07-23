@@ -40,7 +40,7 @@
                 var flag = false;
                 $.ajax({
                     type: "post",
-                    url: "/checkUsername",
+                    url: "/regCheck/checkUsername",
                     async: false,
                     data: "username=" + username + "&" + csrfParameterName + "=" + csrfToken,
                     success: function () {
@@ -81,7 +81,7 @@
                 if (checkEmail($email.val())) {
                     $.ajax({
                         type: "post",
-                        url: "/sendCode",
+                        url: "/regCheck/sendCode",
                         data: "email=" + $email.val() + "&" + csrfParameterName + "=" + csrfToken,
                         success: function () {
                             alert("验证码已发送");
@@ -97,7 +97,7 @@
                 var flag = false;
                 $.ajax({
                     type: "post",
-                    url: "/checkCode",
+                    url: "/regCheck/checkCode",
                     async: false,
                     data: "email=" + email + "&code=" + code + "&" + csrfParameterName + "=" + csrfToken,
                     success: function () {
@@ -113,7 +113,7 @@
             function doReg(username, password) {
                 $.ajax({
                     type: "post",
-                    url: "/doReg",
+                    url: "/regCheck/doReg",
                     data: "username=" + username + "&password=" + password + "&" + csrfParameterName + "=" + csrfToken,
                     success: function () {
                         alert("注册成功!");

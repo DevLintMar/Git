@@ -31,10 +31,10 @@ public class UserServiceImpl implements UserService {
     private StringRedisTemplate template;
 
     @Resource
-    JavaMailSender mailSender;
+    private JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
-    String from;
+    private String from;
 
     @Override
     public List<AuthUser> getAll() {

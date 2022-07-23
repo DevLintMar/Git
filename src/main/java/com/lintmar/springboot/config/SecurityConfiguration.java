@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * @author LintMar
@@ -16,7 +16,9 @@ import org.springframework.security.web.authentication.rememberme.InMemoryTokenR
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private PersistentTokenRepository repository;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -28,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/doReg").permitAll()
+                .antMatchers("/regCheck/**").permitAll()
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/user/**").hasRole("admin")
                 .anyRequest().hasRole("user")
@@ -44,6 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .rememberMeParameter("rememberMe")
-                .tokenRepository(new InMemoryTokenRepositoryImpl());
+                .tokenRepository(repository);
     }
 }
