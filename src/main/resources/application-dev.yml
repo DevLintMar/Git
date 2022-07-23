@@ -29,6 +29,10 @@ spring:
     host: smtp.163.com
     username: LintMar@163.com
     password: PSNUUUCTIAKHUWMP
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 mybatis:
   type-aliases-package: com.lintmar.springboot.bean

@@ -11,6 +11,7 @@ import java.util.List;
  * @date 2022/7/16
  **/
 @Mapper
+@Deprecated
 @CacheNamespace(implementation = RedisMyBatisCache.class)
 public interface UserMapper {
     @Select("select username, password, roles from auth_user")

@@ -18,7 +18,7 @@
             function init() {
                 $.ajax({
                     type: "post",
-                    url: "/user/getAll",
+                    url: "/account/findAll",
                     dataType: "json",
                     data: csrfParameterName + "=" + csrfToken,
                     success: function (list) {
@@ -49,7 +49,7 @@
                 if (window.confirm("确认删除用户: " + username)) {
                     $.ajax({
                         type: "post",
-                        url: "/user/delete",
+                        url: "/account/delete",
                         data: "username=" + username + "&" + csrfParameterName + "=" + csrfToken,
                         success: function () {
                             alert("成功删除用户: " + username);
@@ -64,7 +64,7 @@
                     if (username !== "" && password !== "") {
                         $.ajax({
                             type: "post",
-                            url: "/user/add",
+                            url: "/account/save",
                             dataType: "json",
                             data: "username=" + username + "&password=" + password + "&roles=" + roles + "&" + csrfParameterName + "=" + csrfToken,
                             success: function (authUser) {

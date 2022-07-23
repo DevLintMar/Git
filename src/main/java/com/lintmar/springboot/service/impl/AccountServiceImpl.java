@@ -1,8 +1,8 @@
 package com.lintmar.springboot.service.impl;
 
-import com.lintmar.springboot.entity.AuthUser;
-import com.lintmar.springboot.mapper.UserMapper;
-import com.lintmar.springboot.service.UserService;
+import com.lintmar.springboot.entity.Account;
+import com.lintmar.springboot.repository.AccountRepository;
+import com.lintmar.springboot.service.AccountService;
 import com.lintmar.springboot.utils.EncoderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,9 +23,9 @@ import java.util.concurrent.TimeUnit;
  * @date 2022/7/16
  **/
 @Service
-public class UserServiceImpl implements UserService {
+public class AccountServiceImpl implements AccountService {
     @Autowired
-    private UserMapper userMapper;
+    private AccountRepository accountRepository;
 
     @Resource
     private StringRedisTemplate template;
@@ -37,24 +37,24 @@ public class UserServiceImpl implements UserService {
     private String from;
 
     @Override
-    public List<AuthUser> getAll() {
-        return userMapper.getAll();
+    public List<Account> findAll() {
+        return accountRepository.findAll();
     }
 
     @Override
-    public AuthUser addUser(String username, String password) {
-        AuthUser authUser = new AuthUser();
-        authUser.setUsername(username);
-        authUser.setPassword(EncoderUtils.encode(password));
-        authUser.setRoles("user");
-        userMapper.addUser(authUser);
-        return authUser;
+    public Account save(String username, String password) {
+        Account account = new Account();
+        account.setUsername(username);
+        account.setPassword(EncoderUtils.encode(password));
+        account.setRoles("user");
+        accountRepository.save(account);
+        return account;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public AuthUser addUser(String username, String password, String... roles) {
-        AuthUser authUser = new AuthUser();
+    public Account save(String username, String password, String... roles) {
+        Account account = new Account();
         StringBuilder rolesStr = new StringBuilder();
         for (String role : roles) {
             rolesStr.append(role);
@@ -62,22 +62,22 @@ public class UserServiceImpl implements UserService {
         }
         if (rolesStr.length() != 0) {
             rolesStr.deleteCharAt(rolesStr.length() - 1);
-            authUser.setRoles(rolesStr.toString());
-        } else authUser.setRoles(null);
-        authUser.setUsername(username);
-        authUser.setPassword(EncoderUtils.encode(password));
-        userMapper.addUser(authUser);
-        return authUser;
+            account.setRoles(rolesStr.toString());
+        } else account.setRoles(null);
+        account.setUsername(username);
+        account.setPassword(EncoderUtils.encode(password));
+        accountRepository.save(account);
+        return account;
     }
 
     @Override
-    public int deleteUser(String username) {
-        return userMapper.deleteUser(username);
+    public void deleteByUsername(String username) {
+        accountRepository.deleteByUsername(username);
     }
 
     @Override
     public boolean checkUsername(String username) {
-        return userMapper.getUser(username) == null;
+        return accountRepository.findByUsername(username) == null;
     }
 
     @Override

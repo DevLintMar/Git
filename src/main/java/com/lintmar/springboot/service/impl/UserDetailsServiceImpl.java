@@ -1,7 +1,7 @@
 package com.lintmar.springboot.service.impl;
 
-import com.lintmar.springboot.entity.AuthUser;
-import com.lintmar.springboot.mapper.UserMapper;
+import com.lintmar.springboot.entity.Account;
+import com.lintmar.springboot.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,16 +16,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    private UserMapper userMapper;
+    private AccountRepository accountRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AuthUser authUser = userMapper.getUser(username);
-        if (authUser == null) {
+        Account account = accountRepository.findByUsername(username);
+        if (account == null) {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
-        String password = authUser.getPassword();
-        String[] roles = authUser.getRoles().split(",");
+        String password = account.getPassword();
+        String[] roles = account.getRoles().split(",");
         return User.withUsername(username).password(password).roles(roles).build();
     }
 }
