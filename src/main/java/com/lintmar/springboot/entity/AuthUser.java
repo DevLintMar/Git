@@ -10,6 +10,7 @@ import java.io.Serializable;
  * @date 2022/7/16
  **/
 @Data
+@Deprecated
 public class AuthUser implements Serializable {
     @Serial
     private static final long serialVersionUID = 6383114539726654668L;

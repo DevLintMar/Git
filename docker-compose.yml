@@ -1,0 +1,22 @@
+version: "3.9"  # 首先是版本号，别乱写，这个是和Docker版本有对应的
+services:   # services里面就是我们所有需要进行编排的服务了
+  spring:   # 服务名称，随便起
+    container_name: app_springboot  # 创建的容器名称
+    build: .
+    ports:
+      - "8080:8080"
+  mysql:
+    container_name: app_mysql
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_DATABASE: 'docker'
+      TZ: 'UTC'
+  redis:
+    container_name: app_redis
+    image: redis:latest
+    ports:
+      - "6380:6379"

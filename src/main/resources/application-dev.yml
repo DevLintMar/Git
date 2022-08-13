@@ -1,9 +1,7 @@
 server:
   port: 8080
-
 student:
   id: 1
-
 spring:
   # security:
   #   user:
@@ -13,10 +11,10 @@ spring:
   #       - admin
   #       - user
   datasource:
-    url: jdbc:mysql://localhost:3306/bjpowernode?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bjpowernode?allowMultiQueries=true&serverTimezone=UTC
     username: root
     password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     static-path-pattern: /static/**
   thymeleaf:
@@ -30,10 +28,10 @@ spring:
     username: LintMar@163.com
     password: PSNUUUCTIAKHUWMP
   jpa:
+    database: mysql
     show-sql: true
     hibernate:
       ddl-auto: update
-
 mybatis:
   type-aliases-package: com.lintmar.springboot.bean
   mapper-locations: classpath:com.lintmar.springboot.mapper/*.xml
