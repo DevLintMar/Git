@@ -5,7 +5,7 @@ student:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://app_mysql/docker?allowMultiQueries=true&serverTimezone=UTC
+    url: jdbc:mysql://app_mysql:3306/docker?allowMultiQueries=true&serverTimezone=UTC
     username: root
     password: 123456
   mvc:
